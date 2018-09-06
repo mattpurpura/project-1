@@ -1,15 +1,16 @@
 $(document).ready(function(){
 
-var crypto = "btc";
-var currency = "usd";
-var queryURL = "https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH&tsyms=USD,EUR";
+var crypto = "BTC";
+var fiat = "USD";
+var exchange = "Kraken";
+var queryURL = "https://min-api.cryptocompare.com/data/generateAvg?fsym="+crypto+"&tsym="+fiat+"&e="+exchange;
 
 var timestamp = $.now();
 
 console.log(timestamp);
 
 $.ajax({
-URL: queryURL,
+url: queryURL,
 method: "GET"
 }).then(function(response){
 console.log(response);
