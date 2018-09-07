@@ -12,18 +12,6 @@ var high24;
 var low24;
 var open24;
 
-$(".dropdown-fiat-item").on("click", function(){
-    console.log($(this).text());
-    fiat = $(this).text();
-    callAPI();
-})
-
-$(".dropdown-crypto-item").on("click", function(){
-    console.log($(this).text());
-    crypto = $(this).text();
-    callAPI();
-})
-
 function callAPI(){
     for (let i=0; i<exchangeArray.length; i++){
         $("#data-goes-here").empty();
@@ -68,23 +56,32 @@ function callAPI(){
         });
     }
 }
+
 callAPI();
-// $.ajax({
-// url: queryURL,
-// method: "GET"
-// }).then(function(response){
-    
-//     var data = response.RAW;
-//     console.log(response);
-//     console.log("Price: "+data.PRICE);
-//     console.log("Change 24 hour: "+data.CHANGE24HOUR);
-//     console.log("High 24 Hour: "+data.HIGH24HOUR);
-//     console.log("Low 24 Hour: "+data.LOW24HOUR);
-//     console.log("Open 24 hour: "+data.OPEN24HOUR);
-    
-// })
 
+$(".dropdown-fiat-item").on("click", function(){
+    console.log($(this).text());
+    fiat = $(this).text();
+    callAPI();
+})
 
+$(".dropdown-crypto-item").on("click", function(){
+    console.log($(this).text());
+    crypto = $(this).text();
+    callAPI();
+})
 
+function createUser(){
+    var email = $("#newUserEmail").val();
+    var password = $("#newUserPassword").val();
 
+    firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // ...
+      });
+}
+
+$("#createUser").on("click", createUser);
 }); // ends the document ready function

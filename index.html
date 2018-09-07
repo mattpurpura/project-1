@@ -14,6 +14,20 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
+    <script src="https://www.gstatic.com/firebasejs/5.4.2/firebase.js"></script>
+    <script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyC791FIRafnELFKlaMgRLsRUfZTdBTsq5A",
+        authDomain: "crypto-arbitage.firebaseapp.com",
+        databaseURL: "https://crypto-arbitage.firebaseio.com",
+        projectId: "crypto-arbitage",
+        storageBucket: "crypto-arbitage.appspot.com",
+        messagingSenderId: "863232608232"
+    };
+    firebase.initializeApp(config);
+    </script>
     <script src="javascript/main.js"></script>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="css/style.css">
@@ -51,10 +65,12 @@
                     <a class="nav-link disabled" href="#">Disabled</a>
                 </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Username" aria-label="Search">
-                <input class="form-control mr-sm-2" type="search" placeholder="Password" aria-label="Search">
+            <a class="nav-link" href="sign-in.html">Register</a>
+            <form class="form-inline my-2 my-lg-0">  
+                <input class="form-control mr-sm-2" type="search" placeholder="Email" aria-label="Search" id="email">
+                <input class="form-control mr-sm-2" type="search" placeholder="Password" aria-label="Search" id="password">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
+                            
             </form>
         </div>
     </nav>
