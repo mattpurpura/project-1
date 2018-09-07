@@ -62,38 +62,38 @@
     <br>
     <div class = "container">
     <div class="row">  <!--crypto/fiat/%-->
-        <div class="col-md-2">
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    Crypto
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-crypto-item" href="#">Coinbase</a>
-                    <a class="dropdown-crypto-item" href="#">Bitfinex</a>
-                    <a class="dropdown-crypto-item" href="#">Kraken</a>
-                    <a class="dropdown-crypto-item" href="#">Gemini</a>
-                    <a class="dropdown-crypto-item" href="#">Bittrex</a>
+        <div class="col-md-3">
+                <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <label class="input-group-text" for="inputGroupSelect01">Crypto</label>
+                        </div>
+                        <select class="custom-select" id="inputGroupSelect01">
+                          <option selected>Choose...</option>
+                          <option value="1">Bitcoin</option>
+                          <option value="2">Litecoin</option>
+                          <option value="3">Atherium</option>
+                          <option value="4">Dash</option>
+                          <option value="5">Ripple</option>
 
-                </div>
-            </div>
+                        </select>
+                      </div>
         </div>
         <br>
-        <div class="col-md-2">
-            <div class="dropdown" id="fiat-select">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownFiatButton" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    Fiat
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-fiat-item" href="#">USD</a>
-                    <a class="dropdown-fiat-item" href="#">EUR</a>
-                    <a class="dropdown-fiat-item" href="#">GBP</a>
-                    <a class="dropdown-fiat-item" href="#">JPY</a>
-                    <a class="dropdown-fiat-item" href="#">KRW</a>
-                    
-                </div>
-            </div>
+        <div class="col-md-3">
+                <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <label class="input-group-text" for="inputGroupSelect01">Fiat</label>
+                        </div>
+                        <select class="custom-select" id="inputGroupSelect01">
+                          <option selected>Choose...</option>
+                          <option value="1">USD</option>
+                          <option value="2">Pound</option>
+                          <option value="3">Euro</option>
+                          <option value="4">Yen</option>
+                          <option value="5">SK Won</option>
+
+                        </select>
+                      </div>
         </div>
         <div class="col-md-3">
         <div class="input-group input-group-sm mb-3">
@@ -102,6 +102,9 @@
             </div>
             <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
           </div>
+        </div>
+        <div class = "col-md-3">
+            <button type="button" class="btn btn-secondary">Calculate</button>
         </div>
     </div>
    <div class = "row">
