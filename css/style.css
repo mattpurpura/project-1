@@ -1,6 +1,6 @@
 #buttons-view {
     background-color: lightgray;
-    width: 50%;
+    width: 75%;
     height: 80px;
     margin-left: 0;
     margin-right: 0;
@@ -11,3 +11,13 @@
     margin-left: 0;
     margin-right: 0;
 }
+
+.w3-panel {
+    display: flex;
+    justify-content: space-around;
+}
+.w3-panel > button {
+    margin: 25px 0px;
+    border-radius: 10px;
+    background-color: white;
+}   
