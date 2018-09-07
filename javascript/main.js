@@ -24,6 +24,12 @@ $(".dropdown-crypto-item").on("click", function(){
     callAPI();
 })
 
+$("#calculate").on("click", function(){
+    crypto = $("#cryptoSelect").val();
+    fiat = $("#fiatSelect").val();
+    callAPI();
+});
+
 function callAPI(){
     for (let i=0; i<exchangeArray.length; i++){
         $("#data-goes-here").empty();
@@ -72,7 +78,7 @@ callAPI();
 // $.ajax({
 // url: queryURL,
 // method: "GET"
-// }).then(function(response){
+// }).then(function(response){ 
     
 //     var data = response.RAW;
 //     console.log(response);
