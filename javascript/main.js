@@ -12,15 +12,27 @@ var high24;
 var low24;
 var open24;
 
-for (let i=0; i<exchangeArray.length; i++){
-    exchange = exchangeArray[i];
-    var queryURL = "https://min-api.cryptocompare.com/data/generateAvg?fsym="+crypto+"&tsym="+fiat+"&e="+exchange;
-    
-    
-    
-    $.ajax({
-        url: queryURL,
-        method: "GET"
+$(".dropdown-fiat-item").on("click", function(){
+    console.log($(this).text());
+    fiat = $(this).text();
+    callAPI();
+})
+
+$(".dropdown-crypto-item").on("click", function(){
+    console.log($(this).text());
+    crypto = $(this).text();
+    callAPI();
+})
+
+function callAPI(){
+    for (let i=0; i<exchangeArray.length; i++){
+        $("#data-goes-here").empty();
+        exchange = exchangeArray[i];
+        var queryURL = "https://min-api.cryptocompare.com/data/generateAvg?fsym="+crypto+"&tsym="+fiat+"&e="+exchange;
+        
+        $.ajax({
+            url: queryURL,
+            method: "GET"
         }).then(function(response){
             var data = response.DISPLAY;
             var p1 = $("<p>");
@@ -30,17 +42,21 @@ for (let i=0; i<exchangeArray.length; i++){
             var p5 = $("<p>");
             var quoteDiv = $("<div>").addClass("cryptoQuote col-md");
             var quoteTitle = $("<h6>").text(exchangeArray[i]);
+
             quoteDiv.append(quoteTitle);
             price = data.PRICE;
             change24 = data.CHANGE24HOUR;
             high24 = data.HIGH24HOUR;
             low24 = data.LOW24HOUR;
             open24 = data.OPEN24HOUR;
+
             p1.text("Price" +price);
             p2.text("24 Hour Change: "+change24);
             p3.text("24 Hour High: " + high24);
             p4.text("24 Hour Low: "+low24);
             p5.text("24 Hour Open: "+open24);
+
+            console.log(exchange);
             console.log("Price: "+data.PRICE);
             console.log("Change 24 hour: "+data.CHANGE24HOUR);
             console.log("High 24 Hour: "+data.HIGH24HOUR);
@@ -50,8 +66,9 @@ for (let i=0; i<exchangeArray.length; i++){
             quoteDiv.append(p1, p2, p3, p4, p5);
             $("#data-goes-here").append(quoteDiv)
         });
-    
+    }
 }
+callAPI();
 // $.ajax({
 // url: queryURL,
 // method: "GET"
