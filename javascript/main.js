@@ -83,5 +83,8 @@ function createUser(){
       });
 }
 
-$("#createUser").on("click", createUser);
+$("#createUser").on("click", function(){
+    document.preventDefault();
+    createUser();
+});
 }); // ends the document ready function

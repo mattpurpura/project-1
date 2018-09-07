@@ -15,7 +15,12 @@
                     crossorigin="anonymous"></script>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
                 
-                <script src="https://www.gstatic.com/firebasejs/5.4.2/firebase.js"></script>
+                <!-- Initial firebase app -->
+                <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-app.js"></script>
+                <!-- firebase - authentication specific -->
+                <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-auth.js"></script>
+                
+                <!-- <script src="https://www.gstatic.com/firebasejs/5.4.2/firebase.js"></script> -->
                 <script>
                 // Initialize Firebase
                 var config = {
@@ -28,7 +33,8 @@
                 };
                 firebase.initializeApp(config);
                 </script>
-                <script src="javascript/main.js"></script>
+                <!-- link custom pages -->
+                <script src="javascript/Auth.js"></script>
                 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
                 <link rel="stylesheet" href="css/style.css">
             </head>
@@ -66,9 +72,9 @@
             </ul>
             <a class="nav-link" href="sign-in.html">Register</a>
             <form class="form-inline my-2 my-lg-0">  
-                <input class="form-control mr-sm-2" type="search" placeholder="Email" aria-label="Search" id="email">
-                <input class="form-control mr-sm-2" type="search" placeholder="Password" aria-label="Search" id="password">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
+                <input class="form-control mr-sm-2" type="search" placeholder="Email" aria-label="Search" id="existingEmail">
+                <input class="form-control mr-sm-2" type="search" placeholder="Password" aria-label="Search" id="existingPassword">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="login">Login</button>
                             
             </form>
         </div>
