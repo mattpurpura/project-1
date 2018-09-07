@@ -12,6 +12,26 @@ var high24;
 var low24;
 var open24;
 
+function renderButtons () {
+    $("#buttons-view").empty();
+    for (var i=0; i< exchangeArray.length; i++) {
+        var button = $("<button>").attr("value", exchangeArray[i]);
+        button.text(exchangeArray[i]);
+        $("#buttons-view").append(button);
+    }
+}
+renderButtons();
+
+function newButton() {
+    var input = $("#inputExchange").val().trim();
+    exchangeArray.push(input);
+    console.log(exchangeArray);
+}
+$("#newExchange").on("click", function(event) {
+    event.preventDefault();
+    newButton();
+    renderButtons();
+})
 $(".dropdown-fiat-item").on("click", function(){
     console.log($(this).text());
     fiat = $(this).text();
