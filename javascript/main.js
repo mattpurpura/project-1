@@ -11,6 +11,7 @@ var fiat = "USD";
 var exchange;
 
 var exchangeArray = ['Coinbase', 'Bitfinex', 'Kraken', 'Gemini', 'Bittrex'];
+var customExchArray = [];
 
 var price;
 var change24;
@@ -21,7 +22,7 @@ var open24;
 function renderButtons () {
     $("#buttons-view").empty();
     for (var i=0; i< exchangeArray.length; i++) {
-        var button = $("<button>").attr("value", exchangeArray[i]);
+        var button = $("<button>").attr("value", exchangeArray[i]).addClass("exchange-button");
         var p = $("<p>");
         button.text(exchangeArray[i]);
         $("#buttons-view").append(button);
@@ -57,13 +58,29 @@ $(".dropdown-crypto-item").on("click", function(){
 $("#calculate").on("click", function(){
     crypto = $("#cryptoSelect").val();
     fiat = $("#fiatSelect").val();
-    callAPI();
+    callAPI(customExchArray);
 });
 
-function callAPI(){
-    for (let i=0; i<exchangeArray.length; i++){
+function selectExchange(){
+    var exchangeClicked = $(this);
+        if(customExchArray.indexOf(exchangeClicked.val()) === -1){
+            exchangeClicked.addClass("selected-exchange");
+            customExchArray.push(exchangeClicked.val());
+        }
+
+        else{
+            customExchArray.splice($.inArray(exchangeClicked.val(),customExchArray) ,1);
+            exchangeClicked.removeClass("selected-exchange");
+        }
+        console.log(customExchArray); 
+}// end selectExchanges
+
+$(".exchange-button").on("click", selectExchange);
+
+function callAPI(array){
+    for (let i=0; i<array.length; i++){
         $("#data-goes-here").empty();
-        exchange = exchangeArray[i];
+        exchange = array[i];
         var queryURL = "https://min-api.cryptocompare.com/data/generateAvg?fsym="+crypto+"&tsym="+fiat+"&e="+exchange;
         
         $.ajax({
@@ -77,7 +94,7 @@ function callAPI(){
             var p4 = $("<p>");
             var p5 = $("<p>");
             var quoteDiv = $("<div>").addClass("cryptoQuote col-md");
-            var quoteTitle = $("<h6>").text(exchangeArray[i]);
+            var quoteTitle = $("<h6>").text(array[i]);
 
             quoteDiv.append(quoteTitle);
             price = data.PRICE;
@@ -104,7 +121,7 @@ function callAPI(){
         });
     }
 }
-callAPI();
+callAPI(exchangeArray);
 // $.ajax({
 // url: queryURL,
 // method: "GET"
