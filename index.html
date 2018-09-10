@@ -16,6 +16,7 @@
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="javascript/main.js"></script>
+    <script src="javascript/stockapi.js"></script>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -41,19 +42,21 @@
             <!--crypto/fiat/%-->
             <div class="col-md-3">
                 <div class="input-group mb-3">
+
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="inputGroupSelect01">Crypto</label>
                     </div>
 
-
-                    <select class="custom-select" id="inputGroupSelect01">
-                        <option selected>Choose...</option>
-                        <option value="1">Bitcoin</option>
-                        <option value="2">Litecoin</option>
-                        <option value="3">Ethereum</option>
-                        <option value="4">Dash</option>
-                        <option value="5">Ripple</option>
-                    </select>
+                        <div class="input-group-prepend">
+                          <label class="input-group-text" for="inputGroupSelect01">Crypto</label>
+                        </div>
+                        <select class="custom-select" id="cryptoSelect">
+                          <option selected>Choose...</option>
+                          <option value="BTC">Bitcoin</option>
+                          <option value="LTC">Litecoin</option>
+                          <option value="ETH">Ethereum</option>
+                          <option value="DASH">Dash</option>
+                          <option value="XRP">Ripple</option>
                 </div>
 
             </div>
@@ -61,27 +64,41 @@
             <p>
             <div class="col-md-3">
                 <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" for="inputGroupSelect01">Fiat</label>
-                    </div>
-                    <select class="custom-select" id="inputGroupSelect01">
-                        <option selected>Choose...</option>
-                        <option value="1">USD</option>
-                        <option value="2">Pound</option>
-                        <option value="3">Euro</option>
-                        <option value="4">Yen</option>
-                        <option value="5">SK Won</option>
+
+                    
+                        <div class="input-group-prepend">
+                          <label class="input-group-text" for="inputGroupSelect01">Fiat</label>
+                        </div>
+                        <select class="custom-select" id="fiatSelect">
+                          <option selected>Choose...</option>
+                          <option value="USD">US Dollar</option>
+                          <option value="GBP">GB Pound</option>
+                          <option value="EUR">Euro</option>
+                          <option value="JPY">Japanese Yen</option>
+                          <option value="KRW">South Korean Won</option>
+
 
                     </select>
                 </div>
             </div>
+
             <div class="col-md-3">
                 <div class="input-group input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-sm">% diff.</span>
-                    </div>
-                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                </div>
+                  </div>
+            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+          </div>
+        </div>
+        <div class = "col-md-3">
+            <button type="button" class="btn btn-secondary" id="calculate">Calculate</button>
+        </div>
+    </div>
+   <div class = "row">
+            <div class="w3-panel w3-round-medium" id="buttons-view">
+             
+               
+
             </div>
 
             <div class="col-md-3">
@@ -113,7 +130,36 @@
             </div>
         </div>
     </div>
+
     
+     <div class="row">
+        <div class="input-group-prepend">
+            <button class="btn btn-outline-secondary" type="button" id="add-positive-button">Add Postive Ticker</button>
+        </div>
+        <div>
+            <input type="text" id ="input-positive-stock" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+        </div>
+        <div class="input-group-prepend">
+                <button class="btn btn-outline-secondary" type="button" id="positive-api-call">Go</button>
+            </div>
+    </div>
+    <div class="row">
+            <div class="input-group-prepend">
+                <button class="btn btn-outline-secondary" type="button" id="add-negative-button">Add Negative Ticker</button>
+            </div>
+            <div>
+                <input type="text" id ="input-negative-stock" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+            </div>
+            <div class="input-group-prepend">
+                    <button class="btn btn-outline-secondary" type="button" id="negative-api-call">Go</button>
+                </div>
+        </div>
+    </div>
+
+   
+   
+
+
     <!--<div class="row">
         <div class="col-md-3">
             <div class="card" style="width: 18rem;">
