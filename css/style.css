@@ -1,7 +1,8 @@
 #buttons-view {
     background-color:rgb(24, 144, 241);
     margin: 0 auto;
-    border-bottom: 0px;
+    border-bottom: 5px;
+    padding: 10px 8px 15px 8px;
     box-sizing: border-box;  
 }
 
@@ -41,7 +42,9 @@ body {
 #input {
     margin-bottom: 1px;
 }   
-
+.btn {
+    color: white;
+}
 .selected-exchange{
     background-color: greenyellow !important;
 }
