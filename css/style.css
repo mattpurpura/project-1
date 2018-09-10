@@ -21,3 +21,7 @@
     border-radius: 10px;
     background-color: white;
 }   
+
+.selected-exchange{
+    background-color: greenyellow !important;
+}
