@@ -1,5 +1,11 @@
 $(document).ready(function(){
 
+/// ------- DOM elements ---------------------------------------
+var input = $("#inputExchange");
+
+
+// ------------------------------------------------------------------------------------
+
 var crypto = "BTC";
 var fiat = "USD";
 var exchange;
@@ -16,6 +22,7 @@ function renderButtons () {
     $("#buttons-view").empty();
     for (var i=0; i< exchangeArray.length; i++) {
         var button = $("<button>").attr("value", exchangeArray[i]);
+        var p = $("<p>");
         button.text(exchangeArray[i]);
         $("#buttons-view").append(button);
     }
@@ -23,14 +30,17 @@ function renderButtons () {
 renderButtons();
 
 function newButton() {
-    var input = $("#inputExchange").val().trim();
-    exchangeArray.push(input);
+    var inputVal = input.val().trim();
+    exchangeArray.push(inputVal);
     console.log(exchangeArray);
 }
-$("#newExchange").on("click", function(event) {
-    event.preventDefault();
+$("#newExchange").on("click", function(event) {   
+    event.preventDefault(); 
+    if (input.val() !== "") {
     newButton();
     renderButtons();
+    input.val("")
+    }
 })
 $(".dropdown-fiat-item").on("click", function(){
     console.log($(this).text());
