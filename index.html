@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,109 +30,126 @@
     firebase.initializeApp(config);
     </script>
     <script src="javascript/main.js"></script>
+    <script src="javascript/stockapi.js"></script>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light"> <!--navbar-->
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    <div class="shadow p-0 mb-5 bg-none rounded" id="head">
+        <nav class="navbar navbar-light bg-none">
+            <a class="navbar-brand">Crypto Tracker</a>
+            <form class="form-inline">
+                <input class="form-control mr-sm-2" type="search" placeholder="Username" aria-label="Search">
+                <input class="form-control mr-sm-2" type="search" placeholder="Password" aria-label="Search">
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        Dropdown
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
-                </li>
-            </ul>
-            <a class="nav-link" href="sign-in.html">Register</a>
-            <form class="form-inline my-2 my-lg-0">  
-                <input class="form-control mr-sm-2" type="search" placeholder="Email" aria-label="Search" id="email">
-                <input class="form-control mr-sm-2" type="search" placeholder="Password" aria-label="Search" id="password">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
-                            
+                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Login</button>
             </form>
-        </div>
-    </nav>
-    <br>
-    <br>
-    <div class = "container">
-    <div class="row">  <!--crypto/fiat/%-->
-        <div class="col-md-2">
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    Crypto
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-crypto-item" href="#">Coinbase</a>
-                    <a class="dropdown-crypto-item" href="#">Bitfinex</a>
-                    <a class="dropdown-crypto-item" href="#">Kraken</a>
-                    <a class="dropdown-crypto-item" href="#">Gemini</a>
-                    <a class="dropdown-crypto-item" href="#">Bittrex</a>
+        </nav>
+    </div>
 
+    <br>
+    <br>
+    <p></p>
+    <div class="container">
+        <div class="row">
+            <!--crypto/fiat/%-->
+            <div class="col-md-3">
+                <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <label class="input-group-text" for="inputGroupSelect01">Crypto</label>
+                        </div>
+                        <select class="custom-select" id="cryptoSelect">
+                          <option selected>Choose...</option>
+                          <option value="BTC">Bitcoin</option>
+                          <option value="LTC">Litecoin</option>
+                          <option value="ETH">Ethereum</option>
+                          <option value="DASH">Dash</option>
+                          <option value="XRP">Ripple</option>
+                          </select>
                 </div>
             </div>
-        </div>
-        <br>
-        <div class="col-md-2">
-            <div class="dropdown" id="fiat-select">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownFiatButton" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    Fiat
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-fiat-item" href="#">USD</a>
-                    <a class="dropdown-fiat-item" href="#">EUR</a>
-                    <a class="dropdown-fiat-item" href="#">GBP</a>
-                    <a class="dropdown-fiat-item" href="#">JPY</a>
-                    <a class="dropdown-fiat-item" href="#">KRW</a>
-                    
+
+            <div class="col-md-3">
+                <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <label class="input-group-text" for="inputGroupSelect01">Fiat</label>
+                        </div>
+                        <select class="custom-select" id="fiatSelect">
+                          <option selected>Choose...</option>
+                          <option value="USD">US Dollar</option>
+                          <option value="GBP">GB Pound</option>
+                          <option value="EUR">Euro</option>
+                          <option value="JPY">Japanese Yen</option>
+                          <option value="KRW">South Korean Won</option>
+                        </select>
                 </div>
             </div>
-        </div>
-        <div class="col-md-3">
-        <div class="input-group input-group-sm mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="inputGroup-sizing-sm">% diff.</span>
-            </div>
+
+            <div class="col-md-3">
+                <div class="input-group input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">% diff.</span>
+                  </div>
             <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
           </div>
         </div>
+        <div class = "col-md-3">
+            <button type="button" class="btn btn-secondary" id="calculate">Calculate</button>
+        </div>
     </div>
    <div class = "row">
-            <div class="w3-panel w3-round-medium" id="buttons-view">
-               <p></p>
-                Buttons go here!
-            </div>
+        <div class="w3-panel w3-round-medium" id="buttons-view">
+            
+            
+
+        </div>
     </div>
+      <br>
     <div class = "row">
-            <div class="w3-panel w3-round-medium row" id="data-goes-here">
+        <div class="input-group mb-3" id="input">
+            <div class="input-group-prepend">
+                <button class="btn btn-outline-secondary" type="button" id="newExchange">Add Exchange</button>
+            </div>
+            <input type="text" id="inputExchange" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="w3-panel w3-round-medium row shadow p-3 mb-5 rounded" id="data-goes-here">
+                
+        </div>
+    </div>
+
     
+     <div class="row">
+        <div class="input-group-prepend">
+            <button class="btn btn-outline-secondary" type="button" id="add-positive-button">Add Pos+ Ticker</button>
+        </div>
+        <div>
+            <input type="text" id ="input-positive-stock" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+        </div>
+        <div class="input-group-prepend">
+                <button class="btn btn-outline-secondary" type="button" id="positive-api-call">Go</button>
             </div>
     </div>
+    <div class="row">
+            <div class="input-group-prepend">
+                <button class="btn btn-outline-secondary" type="button" id="add-negative-button">Add Neg- Ticker</button>
+            </div>
+            <div>
+                <input type="text" id ="input-negative-stock" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+            </div>
+            <div class="input-group-prepend">
+                    <button class="btn btn-outline-secondary" type="button" id="negative-api-call">Go</button>
+                </div>
+        </div>
     </div>
+
+   
+   
+
+
     <!--<div class="row">
         <div class="col-md-3">
             <div class="card" style="width: 18rem;">
@@ -272,7 +290,7 @@
         </div>
     </div>
     <p>-->
-        <!-- <br>
+    <!-- <br>
         <div class="row">
             <div class="alert alert-dark" role="alert">
                 A simple dark alert—check it out!
