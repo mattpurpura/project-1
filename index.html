@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,82 +21,99 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-light bg-light">
-        <a class="navbar-brand">Crypto Tracker</a>
-        <form class="form-inline">
-          <input class="form-control mr-sm-2" type="search" placeholder="Username" aria-label="Search">
-          <input class="form-control mr-sm-2" type="search" placeholder="Password" aria-label="Search">
-          
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
-        </form>
-      </nav>
+    <div class="shadow p-0 mb-5 bg-none rounded" id="head">
+        <nav class="navbar navbar-light bg-none">
+            <a class="navbar-brand">Crypto Tracker</a>
+            <form class="form-inline">
+                <input class="form-control mr-sm-2" type="search" placeholder="Username" aria-label="Search">
+                <input class="form-control mr-sm-2" type="search" placeholder="Password" aria-label="Search">
+
+                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Login</button>
+            </form>
+        </nav>
+    </div>
+
     <br>
     <br>
-    <div class = "container">
-    <div class="row">  <!--crypto/fiat/%-->
-        <div class="col-md-3">
+    <p></p>
+    <div class="container">
+        <div class="row">
+            <!--crypto/fiat/%-->
+            <div class="col-md-3">
                 <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                          <label class="input-group-text" for="inputGroupSelect01">Crypto</label>
-                        </div>
-                        <select class="custom-select" id="inputGroupSelect01">
-                          <option selected>Choose...</option>
-                          <option value="1">Bitcoin</option>
-                          <option value="2">Litecoin</option>
-                          <option value="3">Atherium</option>
-                          <option value="4">Dash</option>
-                          <option value="5">Ripple</option>
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect01">Crypto</label>
+                    </div>
 
-                        </select>
-                      </div>
-        </div>
-        <br>
-        <div class="col-md-3">
+
+                    <select class="custom-select" id="inputGroupSelect01">
+                        <option selected>Choose...</option>
+                        <option value="1">Bitcoin</option>
+                        <option value="2">Litecoin</option>
+                        <option value="3">Ethereum</option>
+                        <option value="4">Dash</option>
+                        <option value="5">Ripple</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <p>
+            <div class="col-md-3">
                 <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                          <label class="input-group-text" for="inputGroupSelect01">Fiat</label>
-                        </div>
-                        <select class="custom-select" id="inputGroupSelect01">
-                          <option selected>Choose...</option>
-                          <option value="1">USD</option>
-                          <option value="2">Pound</option>
-                          <option value="3">Euro</option>
-                          <option value="4">Yen</option>
-                          <option value="5">SK Won</option>
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect01">Fiat</label>
+                    </div>
+                    <select class="custom-select" id="inputGroupSelect01">
+                        <option selected>Choose...</option>
+                        <option value="1">USD</option>
+                        <option value="2">Pound</option>
+                        <option value="3">Euro</option>
+                        <option value="4">Yen</option>
+                        <option value="5">SK Won</option>
 
-                        </select>
-                      </div>
-        </div>
-        <div class="col-md-3">
-        <div class="input-group input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="inputGroup-sizing-sm">% diff.</span>
+                    </select>
+                </div>
             </div>
-            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-          </div>
-        </div>
-        <div class = "col-md-3">
-            <button type="button" class="btn btn-secondary">Calculate</button>
-        </div>
-    </div>
-   <div class = "row">
-            <div class="w3-panel w3-round-medium" id="buttons-view">
-             
-               
+            <div class="col-md-3">
+                <div class="input-group input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">% diff.</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                </div>
             </div>
-            <div class="input-group mb-3">
-  <div class="input-group-prepend">
-    <button class="btn btn-outline-secondary" type="button" id="newExchange">Add Exchange</button>
-  </div>
-  <input type="text" id ="inputExchange" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
-</div>
-    </div>
-    <div class = "row">
-            <div class="w3-panel w3-round-medium row" id="data-goes-here">
+
+            <div class="col-md-3">
+                <button type="button" class="btn btn-secondary, shadow mb-4 bg-none rounded" id = "calculate">Calculate</button>
+            </div>
+            </div>
+            <div class="row">
+                
+                    <div class="shadow p-3 mb-5 rounded" id="buttons-view">
+                            <div class="shadow p-0 mb-5 bg-none rounded">
+                            </div>
+                    </div>
+                </div>
     
+            
+           
+            <div class = "row">
+                <div class="input-group mb-3" id="input">
+                    <div class="input-group-prepend">
+                        <button class="btn btn-outline-secondary" type="button" id="newExchange">Add Exchange</button>
+                    </div>
+                    <input type="text" id="inputExchange" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                </div>
             </div>
+        </div>
+        <div class="row">
+            <div class="w3-panel w3-round-medium row shadow p-3 mb-5 rounded" id="data-goes-here">
+                    
+            </div>
+        </div>
     </div>
-    </div>
+    
     <!--<div class="row">
         <div class="col-md-3">
             <div class="card" style="width: 18rem;">
@@ -236,7 +254,7 @@
         </div>
     </div>
     <p>-->
-        <!-- <br>
+    <!-- <br>
         <div class="row">
             <div class="alert alert-dark" role="alert">
                 A simple dark alert—check it out!
