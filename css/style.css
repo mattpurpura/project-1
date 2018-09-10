@@ -1,25 +1,45 @@
 #buttons-view {
-    background-color: lightgray;
-    width: 75%;
-    height: 80px;
-    margin-left: 0;
-    margin-right: 0;
+    background-color:rgb(24, 144, 241);
+    margin: 0 auto;
+    border-bottom: 0px;
+    box-sizing: border-box;  
 }
 
 #data-goes-here{
-    background-color: lightgray;
-    margin-left: 0;
-    margin-right: 0;
+    background-color: rgb(64, 169, 255);
+    margin: 0 auto;  
 }
 
-.w3-panel {
-    display: flex;
+.shadow {
     justify-content: space-around;
 }
-.w3-panel > button {
-    margin: 25px 0px;
+.shadow > button {
+    margin: 7px;
     border-radius: 10px;
     background-color: white;
+    text-align: center;
+}   
+#head {
+    background-color: rgb(24, 144, 241);
+    color: white;
+    position: fixed;
+    width: 100%;
+    z-index: 2;
+    padding: 0 auto;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+body {
+    background: url(../images/background.jpg);
+    background-repeat: no-repeat; 
+    background-size: cover;
+}
+#newExchange {
+    color: white;
+    z-index: 1;
+}
+#input {
+    margin-bottom: 1px;
 }   
 
 .selected-exchange{
