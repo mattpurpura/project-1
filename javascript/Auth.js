@@ -1,5 +1,12 @@
 $(document).ready(function(){
 
+// const firestore = firebase.firestore();
+// const settings = {/* your settings... */ timestampsInSnapshots: true};
+// firestore.settings(settings);
+
+var testArray = ["Coinbase", "Bittrex", "Kraken"];
+var secondArray;
+
 function createUser(){
     var email = $("#newUserEmail").val();
     var password = $("#newUserPassword").val();
@@ -10,7 +17,18 @@ function createUser(){
         var errorCode = error.code;
         var errorMessage = error.message;
         // ...
-    });
+    }).then(function(){
+        firebase.firestore().collection("users").doc(firebase.auth().currentUser.uid).set({
+            email: firebase.auth().currentUser.email,
+            test: testArray
+        })
+        .then(function() {
+            console.log("Document successfully written!");
+        })
+        .catch(function(error) {
+            console.error("Error writing document: ", error);
+        });
+    })
     checkUser() //runs checkUser to set signedIn value
 }//end createUser
 
@@ -77,6 +95,16 @@ $("#login").on("click", function(event){
         createUser();
         // checkUser();
     });// ends createUser onclick
+
+var docRef = firebase.firestore().collection("users").doc("KzKc6UYTZTYACK5dqOTXs4xSrNP2");
+docRef.get().then(function(doc){
+    if (doc.exists){
+        secondArray = doc.data().test;
+        console.log(secondArray);
+        console.log(testArray);
+    }
+})
+
 }); // ends document ready function
 
 
