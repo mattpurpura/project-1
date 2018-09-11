@@ -123,6 +123,26 @@ function callAPI(array){
 }
 callAPI(exchangeArray);
 
+$(function () {
+    $('[data-toggle="popover"]').popover({
+        container: 'body'
+    })
+  })
+// $.ajax({
+// url: queryURL,
+// method: "GET"
+// }).then(function(response){ 
+    
+//     var data = response.RAW;
+//     console.log(response);
+//     console.log("Price: "+data.PRICE);
+//     console.log("Change 24 hour: "+data.CHANGE24HOUR);
+//     console.log("High 24 Hour: "+data.HIGH24HOUR);
+//     console.log("Low 24 Hour: "+data.LOW24HOUR);
+//     console.log("Open 24 hour: "+data.OPEN24HOUR);
+    
+// })
+
 
 
 

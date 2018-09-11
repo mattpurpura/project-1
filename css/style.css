@@ -37,7 +37,6 @@ body {
     background-size: cover;
 }
 #newExchange {
-    color: white;
     z-index: 1;
 }
 #input {
@@ -48,4 +47,27 @@ body {
 }
 .selected-exchange{
     background-color: greenyellow !important;
+}
+#collapseExample {
+    color: black;
+    
+}
+#about {
+    margin-right: auto;
+}
+#login {
+    margin-left: auto;
+}
+#negative {
+    margin-left: auto;
+}
+#posPort, #negPort {
+    background-color: rgb(64, 169, 255);
+    z-index: 1;
+}
+#add-positive-button, #add-negative-button {
+    z-index: 1;
+}
+#stocks {
+    flex-flow: nowrap;
 }
