@@ -11,7 +11,7 @@ var fiat = "USD";
 var exchange;
 
 var exchangeArray = ['Coinbase', 'Bitfinex', 'Kraken', 'Gemini', 'Bittrex'];
-var customExchArray = [];
+var customExchArray = ['Coinbase', 'Bitfinex', 'Kraken'];
 
 var price;
 var change24;
@@ -149,20 +149,134 @@ $(".dropdown-crypto-item").on("click", function(){
     callAPI();
 })
 
-function createUser(){
-    var email = $("#newUserEmail").val();
-    var password = $("#newUserPassword").val();
 
-    firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // ...
-      });
+// ================================================
+// FireBase - FireStore - Functions
+// ================================================
+
+// creates a new use user
+// function createUser(){
+//     var email = $("#newUserEmail").val();
+//     var password = $("#newUserPassword").val();
+
+//     firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+//         // Handle Errors here.
+//         var errorCode = error.code;
+//         var errorMessage = error.message;
+//         // ...
+//       });
+// }
+
+// $("#createUser").on("click", function(){
+//     document.preventDefault();
+//     createUser();
+// });
+
+function loginUser(){
+    var loginEmail = $("#existingEmail").val();
+    var loginPassword = $("#existingPassword").val();
+    
+    if(loginEmail === "" || loginPassword === ""){
+        alert("Invalid email and/or password");
+    }
+    
+    else{ 
+        firebase.auth().signInWithEmailAndPassword(loginEmail, loginPassword)
+        .then(function(){
+            console.log("User logged in")
+        })
+
+        .catch(function(error){
+        var errorCode = error.code
+        var errorMessage = error.message; 
+        });
+    }
+} // end loginUser
+
+// runs loginUser function on login button click
+$("#login").on("click", function(event){
+    event.preventDefault();
+    if(signedIn===false){
+        loginUser();
+    }
+    else if (signedIn === true){
+        signOut();
+    }
+}); //ends login onclick
+
+
+function grabCurrentUserDoc(){
+
 }
 
-$("#createUser").on("click", function(){
-    document.preventDefault();
-    createUser();
-});
+
+// makes new Document on firestore
+function mkDoc(){
+ var usersRef = firebase.firestore().collection("users");
+ usersRef.doc("Cash-Cash").set({
+    name: "Insert-Name-Here"
+ })
+ .then(function(){
+     console.log("Doc Created")
+ })
+ .catch(function(error){
+     console.error("Error", error)
+ });
+} // end mkDoc
+
+// creates a subcollection w/ doc for an existing document
+function mkSubcollectionDoc(){
+    var docRef = firebase.firestore().collection("users").doc("KzKc6UYTZTYACK5dqOTXs4xSrNP2");
+docRef.collection("User-Data").doc("Exchange-choices").set({
+    Name: "monkeys"
+})
+.then(function(){
+    console.log("Document succesfully written!");
+})
+.catch(function(error){
+    console.error("Error writing document: ", error);
+})
+docRef.get().then(function(doc){
+    if (doc.exists){
+        secondArray = doc.data().test;
+        console.log(secondArray);
+        console.log(testArray);
+    }
+})
+} // end mkSubcollectionDoc
+
+// updates Existing Docs
+function updateExistingDoc(){
+var exchangesDocRef = firebase.firestore().collection("users").doc("KzKc6UYTZTYACK5dqOTXs4xSrNP2").collection("User-Data").doc("Exchange-choices");
+return exchangesDocRef.update({
+    name: customExchArray
+})
+.then(function(){
+    console.log("Doc updated!")
+})
+.catch(function(error){
+    console.error("Error:". error);
+})
+
+} // ends updateExisting Doc
+
+
+
+
+
+
+
+// Add a new document in collection "cities"
+// db.collection("cities").doc("LA").set({
+//     name: "Los Angeles",
+//     state: "CA",
+//     country: "USA"
+// })
+// .then(function() {
+//     console.log("Document successfully written!");
+// })
+// .catch(function(error) {
+//     console.error("Error writing document: ", error);
+// });
+
 }); // ends the document ready function
