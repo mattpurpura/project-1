@@ -122,6 +122,12 @@ function callAPI(array){
     }
 }
 callAPI(exchangeArray);
+
+$(function () {
+    $('[data-toggle="popover"]').popover({
+        container: 'body'
+    })
+  })
 // $.ajax({
 // url: queryURL,
 // method: "GET"

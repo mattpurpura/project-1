@@ -37,7 +37,6 @@ body {
     background-size: cover;
 }
 #newExchange {
-    color: white;
     z-index: 1;
 }
 #input {
@@ -48,4 +47,17 @@ body {
 }
 .selected-exchange{
     background-color: greenyellow !important;
+}
+#collapseExample {
+    color: black;
+    
+}
+#about {
+    margin-right: auto;
+}
+#login {
+    margin-left: auto;
+}
+#negative {
+    margin-left: auto;
 }
