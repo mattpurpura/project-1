@@ -68,3 +68,6 @@ body {
 #add-positive-button, #add-negative-button {
     z-index: 1;
 }
+#stocks {
+    flex-flow: nowrap;
+}

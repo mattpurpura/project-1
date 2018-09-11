@@ -113,16 +113,17 @@
 
 
 
-
+    
 
 
     <div class="row">
-        <div class="w3-panel w3-leftbar w3-round-medium row shadow p-3 mb-5 rounded" id="data-goes-here">
-                
-        </div>
+        <div class="w3-panel w3-leftbar w3-round-medium row shadow p-3 mb-5 rounded" id="data-goes-here"></div>
     </div>
 
-    
+        <div class="alert alert-primary" role="alert">
+            <strong>And the answer</strong>  <h5 id="tradeokalert" class="card-title">to trade or not to trade</h5>
+        </div>
+
      <div class="row">
          <div class="col-md-6">
         <div class="input-group-prepend" id="positive">
@@ -130,13 +131,21 @@
             <button class="btn btn-outline-secondary" type="button" id="positive-api-call">Go</button>
         </div>
         <div>
-            <input type="text" id ="input-positive-stock" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+            <form class = "form-inline" id = "stocks">
+                <input type="text" id ="input-positive-stock" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                <div class="input-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">% diff.</span>
+                      </div>
+                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                    </div>
+            </form>
         </div>
         <p></p> 
             <div class="card" id="posPort">
                     <div class="card-body w3-leftbar">
                       <h5 class="card-title">Positive Portfolio</h5>
-                      <h5 id="stockportfolio" class="card-title">currentPortfolio</h5>
+                      <h5 id="stockportfolio" class="card-title"></h5>
                       <p class="card-text"> </p>
                        
                     </div>
@@ -149,13 +158,21 @@
                 <button class="btn btn-outline-secondary" type="button" id="negative-api-call">Go</button>
             </div>
             <div>
+                <form class="form-inline" id = "stocks">
                 <input type="text" id ="input-negative-stock" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                <div class="input-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">% diff.</span>
+                  </div>
+                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                </form>
             </div>
             <p></p>
                 <div class="card" id="negPort">
                         <div class="card-body w3-leftbar">
                           <h5 class="card-title">Negative Portfolio</h5>
-                          <h5 id="stockportfoliotwo" class="card-title">currentPortfolio</h5>
+                          <h5 id="stockportfoliotwo" class="card-title"></h5>
                           <p class="card-text"> </p>
                            
                         </div>
@@ -164,31 +181,6 @@
         </div>
     </div>
     
-
-    <div class="row">
-        <div class="w3-panel w3-round-medium row shadow p-3 mb-5 rounded" >
-                
-            <div class="row">
-                <div class="col-sm-6">
-                  
-                </div>
-                <div class="col-sm-6">
-                  
-                </div>
-              </div>
-            
-
-              <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                <strong>And the answer</strong>  <h5 id="tradeokalert" class="card-title">to trade or not to trade</h5>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              
-   
-   
-
-
     <!--<div class="row">
         <div class="col-md-3">
             <div class="card" style="width: 18rem;">
