@@ -75,7 +75,7 @@ function selectExchange(){
         console.log(customExchArray); 
 }// end selectExchanges
 
-$(".exchange-button").on("click", selectExchange);
+$(document.body).on("click", ".exchange-button", selectExchange);
 
 function callAPI(array){
     for (let i=0; i<array.length; i++){
@@ -102,7 +102,7 @@ function callAPI(array){
             high24 = data.HIGH24HOUR;
             low24 = data.LOW24HOUR;
             open24 = data.OPEN24HOUR;
-
+            
             p1.text("Price" +price);
             p2.text("24 Hour Change: "+change24);
             p3.text("24 Hour High: " + high24);

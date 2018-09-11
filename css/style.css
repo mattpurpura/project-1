@@ -1,25 +1,26 @@
 #buttons-view {
     background-color:rgb(24, 144, 241);
-    margin: 0 auto;
     border-bottom: 5px;
-    padding: 10px 8px 15px 8px;
+    padding: 20px 8px 15px 8px;
     box-sizing: border-box;  
+}
+#buttons-view > button {
+    margin: 7px;
+    border-radius: 10px;
+    background-color: white;
+    text-align: center;
 }
 
 #data-goes-here{
     background-color: rgb(64, 169, 255);
-    margin: 0 auto;  
+    margin: 0 auto; 
+
 }
 
 .shadow {
     justify-content: space-around;
 }
-.shadow > button {
-    margin: 7px;
-    border-radius: 10px;
-    background-color: white;
-    text-align: center;
-}   
+
 #head {
     background-color: rgb(24, 144, 241);
     color: white;
