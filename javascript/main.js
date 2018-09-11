@@ -102,7 +102,7 @@ function callAPI(array){
             high24 = data.HIGH24HOUR;
             low24 = data.LOW24HOUR;
             open24 = data.OPEN24HOUR;
-
+            
             p1.text("Price" +price);
             p2.text("24 Hour Change: "+change24);
             p3.text("24 Hour High: " + high24);
