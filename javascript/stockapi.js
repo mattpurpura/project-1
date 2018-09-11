@@ -46,6 +46,8 @@ function addPositiveStock(){
 
     console.log(currentPortfolioPositiveArray);
     console.log(positivePortfolioString);
+    $("#stockportfolio").text(currentPortfolioPositiveArray)
+    
 }
 
 $("#add-positive-button").on("click", function(){
@@ -106,7 +108,8 @@ function addNegativeStock(){
 
     currentPortfolioNegativeArray.forEach(ticker => {
     negativePortfolioString = negativePortfolioString.concat(ticker + ",");
-    });
+    $("#stockportfoliotwo").text(currentPortfolioNegativeArray);
+});
 
     console.log(currentPortfolioNegativeArray);
     console.log(negativePortfolioString);
