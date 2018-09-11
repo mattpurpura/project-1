@@ -61,3 +61,10 @@ body {
 #negative {
     margin-left: auto;
 }
+#posPort, #negPort {
+    background-color: rgb(64, 169, 255);
+    z-index: 1;
+}
+#add-positive-button, #add-negative-button {
+    z-index: 1;
+}

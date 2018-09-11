@@ -127,25 +127,39 @@
          <div class="col-md-6">
         <div class="input-group-prepend" id="positive">
             <button class="btn btn-outline-secondary" type="button" id="add-positive-button">Add Pos + Ticker</button>
+            <button class="btn btn-outline-secondary" type="button" id="positive-api-call">Go</button>
         </div>
         <div>
             <input type="text" id ="input-positive-stock" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
         </div>
-        <div class="input-group-prepend">
-                <button class="btn btn-outline-secondary" type="button" id="positive-api-call">Go</button>
-            </div>
+        <p></p> 
+            <div class="card" id="posPort">
+                    <div class="card-body w3-leftbar">
+                      <h5 class="card-title">Positive Portfolio</h5>
+                      <h5 id="stockportfolio" class="card-title">currentPortfolio</h5>
+                      <p class="card-text"> </p>
+                       
+                    </div>
+                  </div>
         </div>
     
         <div class="col-md-6">
             <div class="input-group-prepend" id="negative">
                 <button class="btn btn-outline-secondary" type="button" id="add-negative-button">Add Neg - Ticker</button>
+                <button class="btn btn-outline-secondary" type="button" id="negative-api-call">Go</button>
             </div>
             <div>
                 <input type="text" id ="input-negative-stock" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
             </div>
-            <div class="input-group-prepend">
-                    <button class="btn btn-outline-secondary" type="button" id="negative-api-call">Go</button>
-                </div>
+            <p></p>
+                <div class="card" id="negPort">
+                        <div class="card-body w3-leftbar">
+                          <h5 class="card-title">Negative Portfolio</h5>
+                          <h5 id="stockportfoliotwo" class="card-title">currentPortfolio</h5>
+                          <p class="card-text"> </p>
+                           
+                        </div>
+                      </div>
         </div>
         </div>
     </div>
@@ -156,24 +170,10 @@
                 
             <div class="row">
                 <div class="col-sm-6">
-                  <div class="card">
-                    <div class="card-body">
-                      <h5 class="card-title">Posetive Portfolio</h5>
-                      <h5 id="stockportfolio" class="card-title">currentPortfolio</h5>
-                      <p class="card-text"> </p>
-                       
-                    </div>
-                  </div>
+                  
                 </div>
                 <div class="col-sm-6">
-                  <div class="card">
-                    <div class="card-body">
-                      <h5 class="card-title">Negative Portfolio</h5>
-                      <h5 id="stockportfoliotwo" class="card-title">currentPortfolio</h5>
-                      <p class="card-text"> </p>
-                       
-                    </div>
-                  </div>
+                  
                 </div>
               </div>
             
