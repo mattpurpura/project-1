@@ -75,7 +75,7 @@ function selectExchange(){
         console.log(customExchArray); 
 }// end selectExchanges
 
-$(".exchange-button").on("click", selectExchange);
+$(document.body).on("click", ".exchange-button", selectExchange);
 
 function callAPI(array){
     for (let i=0; i<array.length; i++){
