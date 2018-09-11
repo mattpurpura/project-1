@@ -1,3 +1,5 @@
+var user;
+
 $(document).ready(function(){
 
 // const firestore = firebase.firestore();
@@ -6,6 +8,7 @@ $(document).ready(function(){
 
 var testArray = ["Coinbase", "Bittrex", "Kraken"];
 var secondArray;
+
 
 function createUser(){
     var email = $("#newUserEmail").val();
@@ -33,17 +36,17 @@ function createUser(){
 }//end createUser
 
 function checkUser(){
-    var user = firebase.auth().currentUser;
-
+    user = firebase.auth().currentUser.uid;
+    console.log(user);
     if (user){
-        console.log(user.email);
+        console.log(user);
         signedIn = true;
-        $("#login").html("Sign Out");
+        $("#login-button").html("Sign Out");
     }
     else{
         console.log('not signed in')
         signedIn = false;
-        $("#login").html("Login");
+        $("#login-button").html("Login");
     }
 } //end checkUser
 
@@ -59,34 +62,44 @@ function loginUser(){
     }
     
     else{ 
-        firebase.auth().signInWithEmailAndPassword(loginEmail, loginPassword).catch(function(error){
+        firebase.auth().signInWithEmailAndPassword(loginEmail, loginPassword)
+        .then(function(){
+            checkUser();
+            console.log(signedIn);
+        })
+
+        .catch(function(error){
         var errorCode = error.code
         var errorMessage = error.message; 
+        console.log('User logged in');
+        console.log(firebase.auth().currentUser.email);
         });
 
         
     }
 
-    checkUser();
 }//end loginUser
 
 function signOut(){
      firebase.auth().signOut().then(function() {
+            console.log("User signed out")
+            checkUser();
+            console.log(signedIn);
             // Sign-out successful.
           }).catch(function(error) {
             // An error happened.
-          });
-    checkUser();    
+          });  
 } //end signOut
 
-
-$("#login").on("click", function(event){
+console.log(signedIn);
+$("#login-button").on("click", function(event){
     event.preventDefault();
     if(signedIn===false){
         loginUser();
     }
     else if (signedIn === true){
         signOut();
+        
     }
 }); //ends login onclick
 
@@ -95,15 +108,6 @@ $("#login").on("click", function(event){
         createUser();
         // checkUser();
     });// ends createUser onclick
-
-var docRef = firebase.firestore().collection("users").doc("KzKc6UYTZTYACK5dqOTXs4xSrNP2");
-docRef.get().then(function(doc){
-    if (doc.exists){
-        secondArray = doc.data().test;
-        console.log(secondArray);
-        console.log(testArray);
-    }
-})
 
 }); // ends document ready function
 

@@ -122,20 +122,14 @@ function callAPI(array){
     }
 }
 callAPI(exchangeArray);
-// $.ajax({
-// url: queryURL,
-// method: "GET"
-// }).then(function(response){ 
-    
-//     var data = response.RAW;
-//     console.log(response);
-//     console.log("Price: "+data.PRICE);
-//     console.log("Change 24 hour: "+data.CHANGE24HOUR);
-//     console.log("High 24 Hour: "+data.HIGH24HOUR);
-//     console.log("Low 24 Hour: "+data.LOW24HOUR);
-//     console.log("Open 24 hour: "+data.OPEN24HOUR);
-    
-// })
+
+
+
+
+
+
+
+
 
 $(".dropdown-fiat-item").on("click", function(){
     console.log($(this).text());
@@ -171,43 +165,18 @@ $(".dropdown-crypto-item").on("click", function(){
 //     document.preventDefault();
 //     createUser();
 // });
-
-function loginUser(){
-    var loginEmail = $("#existingEmail").val();
-    var loginPassword = $("#existingPassword").val();
-    
-    if(loginEmail === "" || loginPassword === ""){
-        alert("Invalid email and/or password");
-    }
-    
-    else{ 
-        firebase.auth().signInWithEmailAndPassword(loginEmail, loginPassword)
-        .then(function(){
-            console.log("User logged in")
-        })
-
-        .catch(function(error){
-        var errorCode = error.code
-        var errorMessage = error.message; 
-        });
-    }
-} // end loginUser
-
-// runs loginUser function on login button click
-$("#login").on("click", function(event){
-    event.preventDefault();
-    if(signedIn===false){
-        loginUser();
-    }
-    else if (signedIn === true){
-        signOut();
-    }
-}); //ends login onclick
-
+var currentUserDoc;
 
 function grabCurrentUserDoc(){
-
+    currentUserDoc = firebase.firestore().collection("users").doc(user.uid);
+    console.log(currentUserDoc);
 }
+
+// $("#login-button").on("click", function(event){
+//     event.preventDefault();
+//     grabCurrentUserDoc();
+// });
+
 
 
 // makes new Document on firestore
@@ -226,9 +195,8 @@ function mkDoc(){
 
 // creates a subcollection w/ doc for an existing document
 function mkSubcollectionDoc(){
-    var docRef = firebase.firestore().collection("users").doc("KzKc6UYTZTYACK5dqOTXs4xSrNP2");
-docRef.collection("User-Data").doc("Exchange-choices").set({
-    Name: "monkeys"
+    currentUserDoc = firebase.firestore().collection("users").doc(user);
+currentUserDoc.collection("User-Data").doc("Exchange-choices").set({
 })
 .then(function(){
     console.log("Document succesfully written!");
@@ -247,9 +215,9 @@ docRef.get().then(function(doc){
 
 // updates Existing Docs
 function updateExistingDoc(){
-var exchangesDocRef = firebase.firestore().collection("users").doc("KzKc6UYTZTYACK5dqOTXs4xSrNP2").collection("User-Data").doc("Exchange-choices");
+var exchangesDocRef = firebase.firestore().collection("users").doc(user).collection("User-Data").doc("Exchange-choices");
 return exchangesDocRef.update({
-    name: customExchArray
+    selected: customExchArray
 })
 .then(function(){
     console.log("Doc updated!")

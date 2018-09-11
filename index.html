@@ -33,6 +33,7 @@
     };
     firebase.initializeApp(config);
     </script>
+    <script src="javascript/Auth.js"></script>
     <script src="javascript/main.js"></script>
     <script src="javascript/stockapi.js"></script>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -43,11 +44,11 @@
     <div class="shadow p-0 mb-5 bg-none rounded" id="head">
         <nav class="navbar navbar-light bg-none">
             <a class="navbar-brand">Crypto Tracker</a>
-            <form class="form-inline">
-                <input class="form-control mr-sm-2" type="search" placeholder="Username" aria-label="Search">
-                <input class="form-control mr-sm-2" type="search" placeholder="Password" aria-label="Search">
+            <form class="form-inline" id="login">
+                <input class="form-control mr-sm-2" type="search" placeholder="Username" aria-label="Search" id="existingEmail">
+                <input class="form-control mr-sm-2" type="search" placeholder="Password" aria-label="Search" id="existingPassword">
 
-                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Login</button>
+                <button class="btn btn-outline-light my-2 my-sm-0" type="submit" id="login-button">Login</button>
             </form>
         </nav>
     </div>
