@@ -13,8 +13,8 @@ var currentPortfolioPositiveArray;
 
 var FilterMaxPriceDelta=1.0;   // %change up 
 var FilterMinPriceDelta=1.0;   // %change down
-var toTradeOkFilterMaxPrice = false;   // should trading be done if up % is reached or not
-var toTradeOkFilterMaxPriceNeg = false;   // should trading be done if down % is reached or not
+var toTradeOkFilterMaxPrice = true;   // should trading be done if up % is reached or not
+var toTradeOkFilterMaxPriceNeg = true;   // should trading be done if down % is reached or not
 var toTradeOK = false
 console.log(toTradeOK);
 
@@ -81,7 +81,10 @@ function callAPIpositive(){
     } else {
         toTradeOk = false
     }
-
+    if (toTradeOK === true) {$("#tradeokalert").text("you can trade");
+} else {
+    $("#tradeokalert").text("Don't trade");  
+}
     }        
             
     });
@@ -150,6 +153,10 @@ function callAPInegative(){
     }
 
     console.log(toTradeOK);
+    if (toTradeOK === true) {$("#tradeokalert").text("you can trade");
+    } else {
+        $("#tradeokalert").text("Don't trade");  
+    }
 }        
          
 });
