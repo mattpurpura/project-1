@@ -1,4 +1,3 @@
-$(document).ready(function(){
 
 var state = {}
 var sum_yesterday=0.000;
@@ -161,5 +160,3 @@ function callAPInegative(){
          
 });
 }
-
-}); //ends document ready function

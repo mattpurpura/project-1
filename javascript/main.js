@@ -1,12 +1,10 @@
-$(document).ready(function(){
-
 /// ------- DOM elements ---------------------------------------
 var input = $("#inputExchange");
 
 
 // ------------------------------------------------------------------------------------
 
-var crypto = "BTC";
+var cryptoCurrency = "BTC";
 var fiat = "USD";
 var exchange;
 
@@ -18,6 +16,9 @@ var change24;
 var high24;
 var low24;
 var open24;
+
+console.log(firebase.auth().currentUser);
+getCustomExchange();
 
 function renderButtons () {
     $("#buttons-view").empty();
@@ -41,6 +42,7 @@ $("#newExchange").on("click", function(event) {
     newButton();
     renderButtons();
     input.val("")
+    getCustomExchange();
     }
 })
 $(".dropdown-fiat-item").on("click", function(){
@@ -51,12 +53,12 @@ $(".dropdown-fiat-item").on("click", function(){
 
 $(".dropdown-crypto-item").on("click", function(){
     console.log($(this).text());
-    crypto = $(this).text();
+    cryptoCurrency = $(this).text();
     callAPI();
 })
 
 $("#calculate").on("click", function(){
-    crypto = $("#cryptoSelect").val();
+    cryptoCurrency = $("#cryptoSelect").val();
     fiat = $("#fiatSelect").val();
     callAPI(customExchArray);
 });
@@ -83,8 +85,10 @@ function callAPI(array){
     for (let i=0; i<array.length; i++){
         $("#data-goes-here").empty();
         exchange = array[i];
-        var queryURL = "https://min-api.cryptocompare.com/data/generateAvg?fsym="+crypto+"&tsym="+fiat+"&e="+exchange;
-        
+        console.log(exchange);
+        console.log(cryptoCurrency);
+        var queryURL = "https://min-api.cryptocompare.com/data/generateAvg?fsym="+cryptoCurrency+"&tsym="+fiat+"&e="+exchange;
+        console.log(queryURL);
         $.ajax({
             url: queryURL,
             method: "GET"
@@ -123,7 +127,7 @@ function callAPI(array){
         });
     }
 }
-callAPI(exchangeArray);
+callAPI(exchangeArray);  
 
 $(function () {
     $('[data-toggle="popover"]').popover({
@@ -161,32 +165,145 @@ $(".dropdown-fiat-item").on("click", function(){
 
 $(".dropdown-crypto-item").on("click", function(){
     console.log($(this).text());
-    crypto = $(this).text();
+    cryptoCurrency = $(this).text();
     callAPI();
 })
+
+// ==================================================
+// FireBase - Authorization
+// ==================================================
+
+var user;
+
+// const firestore = firebase.firestore();
+// const settings = {/* your settings... */ timestampsInSnapshots: true};
+// firestore.settings(settings);
+
+var testArray = ["Coinbase", "Bittrex", "Kraken"];
+var secondArray;
+
+
+function createUser(){
+    var email = $("#newUserEmail").val();
+    var password = $("#newUserPassword").val();
+    console.log(email);
+
+    firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // ...
+    }).then(function(){
+        checkUser() //runs checkUser to set signedIn value
+        firebase.firestore().collection("users").doc(firebase.auth().currentUser.uid).set({
+            email: firebase.auth().currentUser.email,
+        })
+        .then(function() {
+            mkUserDataExchangeChoices();
+            console.log("Document successfully written!");
+        })
+        .catch(function(error) {
+            console.error("Error writing document: ", error);
+        });
+    })
+   
+}//end createUser
+
+function checkUser(){
+    let userCheck = firebase.auth().currentUser;
+    if (userCheck){
+        $("#login-button").html("Sign Out");
+        user = firebase.auth().currentUser.uid;
+        signedIn = true;
+        getCustomExchange();
+    }
+    else{
+        user = "";
+        console.log('not signed in')
+        signedIn = false;
+        $("#login-button").html("Login");
+    }
+} //end checkUser
+
+//flag for login button
+var signedIn = false; 
+
+function loginUser(){
+    var loginEmail = $("#existingEmail").val();
+    var loginPassword = $("#existingPassword").val();
+    
+    if(loginEmail === "" || loginPassword === ""){
+        alert("Invalid email and/or password");
+    }
+    
+    else{ 
+        firebase.auth().signInWithEmailAndPassword(loginEmail, loginPassword)
+        .then(function(){
+            checkUser();
+            console.log(signedIn);
+            console.log(firebase.auth().currentUser);
+        })
+
+        .catch(function(error){
+        var errorCode = error.code
+        var errorMessage = error.message; 
+        console.log('User logged in');
+        console.log(firebase.auth().currentUser.email);
+        });
+
+        
+    }
+
+}//end loginUser
+
+function signOut(){
+     firebase.auth().signOut().then(function() {
+            console.log("User signed out")
+            checkUser();
+            console.log(signedIn);
+            // Sign-out successful.
+          }).catch(function(error) {
+            // An error happened.
+          });  
+} //end signOut
+
+console.log(signedIn);
+$("#login-button").on("click", function(event){
+    event.preventDefault();
+    if(signedIn===false){
+        loginUser();
+    }
+    else if (signedIn === true){
+        signOut();
+        
+    }
+}); //ends login onclick
+
+    $("#createUser").on("click", function(event){
+        event.preventDefault();
+        createUser();
+        // checkUser();
+    });// ends createUser onclick
+
+
+function mkUserDataExchangeChoices(){
+    currentUserDoc = firebase.firestore().collection("users").doc(user);
+currentUserDoc.collection("User-Data").doc("Exchange-choices").set({
+    selected: []
+})
+.then(function(){
+    console.log("created User Data");
+})
+.catch(function(error){
+    console.error("Error writing document: ", error);
+})
+} // end mkSubcollectionDoc
 
 
 // ================================================
 // FireBase - FireStore - Functions
 // ================================================
 
-// creates a new use user
-// function createUser(){
-//     var email = $("#newUserEmail").val();
-//     var password = $("#newUserPassword").val();
-
-//     firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-//         // Handle Errors here.
-//         var errorCode = error.code;
-//         var errorMessage = error.message;
-//         // ...
-//       });
-// }
-
-// $("#createUser").on("click", function(){
-//     document.preventDefault();
-//     createUser();
-// });
 var currentUserDoc;
 
 function grabCurrentUserDoc(){
@@ -250,6 +367,26 @@ return exchangesDocRef.update({
 
 } // ends updateExisting Doc
 
+function getCustomExchange(){
+    if(signedIn === true){ //signed in defined on Auth.js
+        console.log(user+" is active.");
+        let exchangeChoicesRef = firebase.firestore().collection("users").doc(user).collection("User-Data").doc("Exchange-choices");
+        exchangeChoicesRef.get().then(function(doc){
+            if (doc.exists){
+                var userSavedExchanges = doc.data().selected;
+                customExchArray = userSavedExchanges;
+                for(let i=0; i<customExchArray.length; i++){
+                    let exchange = $('button[value='+customExchArray[i]+']');
+                    exchange.addClass("selected-exchange");  
+                    console.log(exchange);                  
+                }
+            }
+        })
+    }
+    else{
+        console.log("No active user");
+    }
+}
 
 
 
@@ -266,5 +403,3 @@ return exchangesDocRef.update({
 // .catch(function(error) {
 //     console.error("Error writing document: ", error);
 // });
-
-}); // ends the document ready function

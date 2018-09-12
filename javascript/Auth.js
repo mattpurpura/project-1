@@ -1,7 +1,5 @@
 var user;
 
-$(document).ready(function(){
-
 // const firestore = firebase.firestore();
 // const settings = {/* your settings... */ timestampsInSnapshots: true};
 // firestore.settings(settings);
@@ -24,7 +22,6 @@ function createUser(){
         checkUser() //runs checkUser to set signedIn value
         firebase.firestore().collection("users").doc(firebase.auth().currentUser.uid).set({
             email: firebase.auth().currentUser.email,
-            test: testArray
         })
         .then(function() {
             mkUserDataExchangeChoices();
@@ -38,14 +35,14 @@ function createUser(){
 }//end createUser
 
 function checkUser(){
-    user = firebase.auth().currentUser.uid;
-    console.log(user);
-    if (user){
-        console.log(user);
-        signedIn = true;
+    let userCheck = firebase.auth().currentUser;
+    if (userCheck){
         $("#login-button").html("Sign Out");
+        user = firebase.auth().currentUser.uid;
+        signedIn = true;
     }
     else{
+        user = "";
         console.log('not signed in')
         signedIn = false;
         $("#login-button").html("Login");
@@ -68,6 +65,7 @@ function loginUser(){
         .then(function(){
             checkUser();
             console.log(signedIn);
+            console.log(firebase.auth().currentUser);
         })
 
         .catch(function(error){
@@ -115,7 +113,7 @@ $("#login-button").on("click", function(event){
 function mkUserDataExchangeChoices(){
     currentUserDoc = firebase.firestore().collection("users").doc(user);
 currentUserDoc.collection("User-Data").doc("Exchange-choices").set({
-    status: "user"
+    selected: []
 })
 .then(function(){
     console.log("created User Data");
@@ -125,8 +123,5 @@ currentUserDoc.collection("User-Data").doc("Exchange-choices").set({
 })
 } // end mkSubcollectionDoc
 
-
-
-}); // ends document ready function
 
 
