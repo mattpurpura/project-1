@@ -11,7 +11,7 @@ var fiat = "USD";
 var exchange;
 
 var exchangeArray = ['Coinbase', 'Bitfinex', 'Kraken', 'Gemini', 'Bittrex'];
-var customExchArray = ['Coinbase', 'Bitfinex', 'Kraken'];
+var customExchArray = [];
 
 var price;
 var change24;
@@ -66,11 +66,13 @@ function selectExchange(){
         if(customExchArray.indexOf(exchangeClicked.val()) === -1){
             exchangeClicked.addClass("selected-exchange");
             customExchArray.push(exchangeClicked.val());
+            saveExchangeChoice();
         }
 
         else{
             customExchArray.splice($.inArray(exchangeClicked.val(),customExchArray) ,1);
             exchangeClicked.removeClass("selected-exchange");
+            saveExchangeChoice();
         }
         console.log(customExchArray); 
 }// end selectExchanges
@@ -214,7 +216,7 @@ function mkDoc(){
 } // end mkDoc
 
 // creates a subcollection w/ doc for an existing document
-function mkSubcollectionDoc(){
+function mkUserDataExchangeChoices(){
     currentUserDoc = firebase.firestore().collection("users").doc(user);
 currentUserDoc.collection("User-Data").doc("Exchange-choices").set({
 })
@@ -234,7 +236,7 @@ docRef.get().then(function(doc){
 } // end mkSubcollectionDoc
 
 // updates Existing Docs
-function updateExistingDoc(){
+function saveExchangeChoice(){
 var exchangesDocRef = firebase.firestore().collection("users").doc(user).collection("User-Data").doc("Exchange-choices");
 return exchangesDocRef.update({
     selected: customExchArray
@@ -247,8 +249,6 @@ return exchangesDocRef.update({
 })
 
 } // ends updateExisting Doc
-
-
 
 
 

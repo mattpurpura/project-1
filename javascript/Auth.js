@@ -21,18 +21,20 @@ function createUser(){
         var errorMessage = error.message;
         // ...
     }).then(function(){
+        checkUser() //runs checkUser to set signedIn value
         firebase.firestore().collection("users").doc(firebase.auth().currentUser.uid).set({
             email: firebase.auth().currentUser.email,
             test: testArray
         })
         .then(function() {
+            mkUserDataExchangeChoices();
             console.log("Document successfully written!");
         })
         .catch(function(error) {
             console.error("Error writing document: ", error);
         });
     })
-    checkUser() //runs checkUser to set signedIn value
+   
 }//end createUser
 
 function checkUser(){
@@ -108,6 +110,22 @@ $("#login-button").on("click", function(event){
         createUser();
         // checkUser();
     });// ends createUser onclick
+
+
+function mkUserDataExchangeChoices(){
+    currentUserDoc = firebase.firestore().collection("users").doc(user);
+currentUserDoc.collection("User-Data").doc("Exchange-choices").set({
+    status: "user"
+})
+.then(function(){
+    console.log("created User Data");
+})
+.catch(function(error){
+    console.error("Error writing document: ", error);
+})
+} // end mkSubcollectionDoc
+
+
 
 }); // ends document ready function
 

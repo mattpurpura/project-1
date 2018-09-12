@@ -149,7 +149,7 @@ function callAPInegative(){
     if (sum_todayNegative < (FilterMaxPriceDelta * sum_yesterdayNegative) && toTradeOkFilterMaxPriceNeg === true) {
         toTradeOK = true
     } else {
-        toTradeOk = false
+        toTradeOK = false
     }
 
     console.log(toTradeOK);
