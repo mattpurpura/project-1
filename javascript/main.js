@@ -17,8 +17,28 @@ var high24;
 var low24;
 var open24;
 
+function reset(){
+    cryptoCurrency = "BTC";
+    fiat = "USD";
+    exchange;
+
+    exchangeArray = ['Coinbase', 'Bitfinex', 'Kraken', 'Gemini', 'Bittrex'];
+    customExchArray = [];
+    signedIn = false;
+    renderButtons();
+    var cryptoSelect = $("#cryptoSelect").find(":selected").val();
+    console.log(cryptoSelect);
+    $("#cryptoSelect option[value="+cryptoSelect+"]").removeAttr("selected");
+    $("#cryptoSelect option[value="+cryptoCurrency+"]").attr("selected", "selected");
+
+    var fiatSelect = $("#fiatSelect").find(":selected").val();
+    $("#fiatSelect option[value="+fiatSelect+"]").removeAttr("selected")
+    $("#fiatSelect option[value="+cryptoCurrency+"]").attr("selected", "selected")
+    callAPI(exchangeArray);
+}
+
+
 console.log(firebase.auth().currentUser);
-getCustomExchange();
 
 function renderButtons () {
     $("#buttons-view").empty();
@@ -27,6 +47,12 @@ function renderButtons () {
         var p = $("<p>");
         button.text(exchangeArray[i]);
         $("#buttons-view").append(button);
+        if ($.inArray(exchangeArray[i], customExchArray) !== -1){
+            button.addClass("selected-exchange")
+        }
+    }
+    if (signedIn === true){
+        saveNewExchangeButtons();
     }
 }
 renderButtons();
@@ -42,7 +68,6 @@ $("#newExchange").on("click", function(event) {
     newButton();
     renderButtons();
     input.val("")
-    getCustomExchange();
     }
 })
 $(".dropdown-fiat-item").on("click", function(){
@@ -212,11 +237,12 @@ function checkUser(){
         getCustomExchange();
         getCryptoSelection();
         getFiatSelection();
+        getNewExchangeSelection();
     }
     else{
         user = "";
         console.log('not signed in')
-        signedIn = false;
+        reset();
         $("#login-button").html("Login");
     }
 } //end checkUser
@@ -229,7 +255,7 @@ function loginUser(){
     var loginPassword = $("#existingPassword").val();
     
     if(loginEmail === "" || loginPassword === ""){
-        alert("Invalid email and/or password");
+       
     }
     
     else{ 
@@ -302,6 +328,16 @@ function createInitialUserDocs(){
         console.error("Error writing document: ", error);
     })
     
+    currentUserDoc.collection("User-Data").doc("Updated-exchanges").set({
+        exchanges: ['Coinbase', 'Bitfinex', 'Kraken', 'Gemini', 'Bittrex']
+    })
+    .then(function(){
+        console.log("created Updated exchanges");
+    })
+    .catch(function(error){
+        console.error("Error writing document: ", error);
+    })
+
     //create doc for crypto currency
     currentUserDoc.collection("User-Data").doc("Crypto-choice").set({
         cryptoChoice: ""
@@ -403,7 +439,7 @@ function getCryptoSelection(){
             let userSavedCrypto = doc.data().cryptoChoice;
             cryptoCurrency = userSavedCrypto;
             console.log(cryptoCurrency);
-            $("#cryptoSelect option[value="+cryptoCurrency+"]").attr("selected", "selected");
+            $("#cryptoSelect option[value="+cryptoCurrency+"]").attr("selected", "selected")
         }
     })
 }// end getCrypto function
@@ -433,6 +469,30 @@ function getFiatSelection(){
     })
 }// end getCrypto function
 
+function saveNewExchangeButtons(){
+    var newExchangesDocRef = firebase.firestore().collection("users").doc(user).collection("User-Data").doc("Updated-exchanges");
+    return newExchangesDocRef.update({
+        exchanges: exchangeArray
+    })
+    .then(function(){
+        console.log("Exchange array uploaded!")
+    })
+    .catch(function(error){
+        console.error("Error:". error);
+    })    
+}
+
+function getNewExchangeSelection(){
+    let getExchangeDocRef = firebase.firestore().collection("users").doc(user).collection("User-Data").doc("Updated-exchanges");
+    getExchangeDocRef.get().then(function(doc){
+        if(doc.exists){
+            let userSavedExchanges = doc.data().exchanges;
+            exchangeArray = userSavedExchanges;
+            console.log(exchangeArray);
+            renderButtons();
+        }
+    })
+}// end getCrypto function
 
 
 
