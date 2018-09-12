@@ -19,7 +19,6 @@ function createUser(){
         var errorMessage = error.message;
         // ...
     }).then(function(){
-        checkUser() //runs checkUser to set signedIn value
         firebase.firestore().collection("users").doc(firebase.auth().currentUser.uid).set({
             email: firebase.auth().currentUser.email,
         })

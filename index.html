@@ -41,12 +41,13 @@
 <body>
     <div class="shadow p-0 mb-5 bg-none rounded" id="head">
         <nav class="navbar navbar-light bg-none">
-            <a class="navbar-brand">Crypto Tracker</a>
+            <a class="navbar-brand" href="index.html">Crypto Tracker</a>
             <button type="button" class="btn btn-outline-light my-2 my-sm-0" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Vivamus
             sagittis lacus vel augue laoreet rutrum faucibus.">
             About
             </button>
             <form class="form-inline" id="login">
+                    <a class="nav-link" href="sign-in.html">Register</a>
                     <input class="form-control mr-sm-2" type="search" placeholder="Username" aria-label="Search" id="existingEmail">
                     <input class="form-control mr-sm-2" type="search" placeholder="Password" aria-label="Search" id="existingPassword">
     
@@ -69,12 +70,11 @@
                           <label class="input-group-text" for="inputGroupSelect01">Crypto</label>
                         </div>
                         <select class="custom-select" id="cryptoSelect">
-                          <option selected>Choose...</option>
-                          <option value="BTC">Bitcoin</option>
-                          <option value="LTC">Litecoin</option>
-                          <option value="ETH">Ethereum</option>
-                          <option value="DASH">Dash</option>
-                          <option value="XRP">Ripple</option>
+                          <option class="dropdown-crypto-item" value="BTC" selected>Bitcoin</option>
+                          <option class="dropdown-crypto-item" value="LTC">Litecoin</option>
+                          <option class="dropdown-crypto-item" value="ETH">Ethereum</option>
+                          <option class="dropdown-crypto-item" value="DASH">Dash</option>
+                          <option class="dropdown-crypto-item" value="XRP">Ripple</option>
                           </select>
                 </div>
             </div>
@@ -85,8 +85,7 @@
                           <label class="input-group-text" for="inputGroupSelect01">Fiat</label>
                         </div>
                         <select class="custom-select" id="fiatSelect">
-                          <option selected>Choose...</option>
-                          <option value="USD">US Dollar</option>
+                          <option value="USD" selected>US Dollar</option>
                           <option value="GBP">GB Pound</option>
                           <option value="EUR">Euro</option>
                           <option value="JPY">Japanese Yen</option>
@@ -196,169 +195,6 @@
         </div>
         </div>
     </div>
-    
-    <!--<div class="row">
-        <div class="col-md-3">
-            <div class="card" style="width: 18rem;">
-                <div class="card-header">
-                        <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                    Dropdown button
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                </div>
-                            </div>
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Cras justo odio</li>
-                    <li class="list-group-item">Dapibus ac facilisis in</li>
-                </ul>
-            </div>
-            <p>
-                    <div class="input-group input-group-sm mb-3">
-                            <div class="input-group-prepend">
-                              <span class="input-group-text" id="inputGroup-sizing-sm">% diff.</span>
-                            </div>
-                            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                          </div>
-                <br>
-                <div class="card" style="width: 18rem;">
-                    <div class="card-header">
-                            <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
-                                        Dropdown button
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="#">Action</a>
-                                        <a class="dropdown-item" href="#">Another action</a>
-                                        <a class="dropdown-item" href="#">Something else here</a>
-                                    </div>
-                                </div>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Cras justo odio</li>
-                        <li class="list-group-item">Dapibus ac facilisis in</li>
-                        <li class="list-group-item">Vestibulum at eros</li>
-                    </ul>
-                </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card" style="width: 18rem;">
-                <div class="card-header">
-                        <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                    Dropdown button
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                </div>
-                            </div>
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Cras justo odio</li>
-                    <li class="list-group-item">Dapibus ac facilisis in</li>
-                </ul>
-            </div>
-            <p>
-                    <div class="input-group input-group-sm mb-3">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text" id="inputGroup-sizing-sm">% diff.</span>
-                        </div>
-                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                      </div>
-                <br>
-                <div class="card" style="width: 18rem;">
-                    <div class="card-header">
-                            <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
-                                        Dropdown button
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="#">Action</a>
-                                        <a class="dropdown-item" href="#">Another action</a>
-                                        <a class="dropdown-item" href="#">Something else here</a>
-                                    </div>
-                                </div>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Cras justo odio</li>
-                        <li class="list-group-item">Dapibus ac facilisis in</li>
-                        <li class="list-group-item">Vestibulum at eros</li>
-                    </ul>
-                </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card" style="width: 18rem;">
-                <div class="card-header">
-                        <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                    Dropdown button
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                </div>
-                            </div>
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Cras justo odio</li>
-                    <li class="list-group-item">Dapibus ac facilisis in</li>
-                </ul>
-            </div>
-            <p>
-                    <div class="input-group input-group-sm mb-3">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text" id="inputGroup-sizing-sm">% diff.</span>
-                        </div>
-                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                      </div>
-                <br>
-                <div class="card" style="width: 18rem;">
-                    <div class="card-header">
-                        Featured
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Cras justo odio</li>
-                        <li class="list-group-item">Dapibus ac facilisis in</li>
-                        <li class="list-group-item">Vestibulum at eros</li>
-                    </ul>
-                </div>
-        </div>
-    </div>
-    <p>-->
-    <!-- <br>
-        <div class="row">
-            <div class="alert alert-dark" role="alert">
-                A simple dark alert—check it out!
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3">
-                <select class="form-control">
-                    <option>When it Updates</option>
-                    <option>Option 1</option>
-                    <option>Option 2</option>
-                </select>
-                
-                <select class="form-control">
-                    <option>Alert when % is:</option>
-                    <option>Option 1</option>
-                    <option>Option 2</option>
-                </select>
-            </div>
-        </div>
-        </div> -->
 
 <!-- <script src="javascript/Auth.js"></script> -->
 <script src="javascript/main.js"></script>

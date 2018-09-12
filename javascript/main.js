@@ -51,11 +51,11 @@ $(".dropdown-fiat-item").on("click", function(){
     callAPI();
 })
 
-$(".dropdown-crypto-item").on("click", function(){
-    console.log($(this).text());
-    cryptoCurrency = $(this).text();
-    callAPI();
-})
+// $(".dropdown-crypto-item").on("click", function(){
+//     console.log($(this).text());
+//     cryptoCurrency = $(this).text();
+//     callAPI();
+// })
 
 $("#calculate").on("click", function(){
     cryptoCurrency = $("#cryptoSelect").val();
@@ -68,13 +68,18 @@ function selectExchange(){
         if(customExchArray.indexOf(exchangeClicked.val()) === -1){
             exchangeClicked.addClass("selected-exchange");
             customExchArray.push(exchangeClicked.val());
-            saveExchangeChoice();
+            if (signedIn === true){
+                saveExchangeChoice();
+            }
+            
         }
 
         else{
             customExchArray.splice($.inArray(exchangeClicked.val(),customExchArray) ,1);
             exchangeClicked.removeClass("selected-exchange");
-            saveExchangeChoice();
+            if (signedIn === true){
+                saveExchangeChoice();
+            }
         }
         console.log(customExchArray); 
 }// end selectExchanges
@@ -134,50 +139,42 @@ $(function () {
         container: 'body'
     })
   })
-// $.ajax({
-// url: queryURL,
-// method: "GET"
-// }).then(function(response){ 
-    
-//     var data = response.RAW;
-//     console.log(response);
-//     console.log("Price: "+data.PRICE);
-//     console.log("Change 24 hour: "+data.CHANGE24HOUR);
-//     console.log("High 24 Hour: "+data.HIGH24HOUR);
-//     console.log("Low 24 Hour: "+data.LOW24HOUR);
-//     console.log("Open 24 hour: "+data.OPEN24HOUR);
-    
-// })
 
+  var fiatDropOpen = false;
+  $("#fiatSelect").on("click", function(){
+      if(fiatDropOpen===false){
+          fiatDropOpen = true;
+      }
+      else{
+          fiatDropOpen = false;
+          console.log($(this).val());
+          fiat = $(this).val();
+          if(signedIn === true){
+              uploadFiatSelection();
+          }
+      }
+  }) // end cryptoSelect on click
 
+var cryptoDropOpen = false;
+$("#cryptoSelect").on("click", function(){
+    if(cryptoDropOpen===false){
+        cryptoDropOpen = true;
+    }
+    else{
+        cryptoDropOpen = false;
+        console.log($(this).val());
+        cryptoCurrency = $(this).val();
+        if(signedIn === true){
+            uploadCryptoSelection();
+        }
+    }
+}) // end cryptoSelect on click
 
-
-
-
-
-
-
-$(".dropdown-fiat-item").on("click", function(){
-    console.log($(this).text());
-    fiat = $(this).text();
-    callAPI();
-})
-
-$(".dropdown-crypto-item").on("click", function(){
-    console.log($(this).text());
-    cryptoCurrency = $(this).text();
-    callAPI();
-})
-
-// ==================================================
+// =================================================================================================================
 // FireBase - Authorization
-// ==================================================
+// =================================================================================================================
 
 var user;
-
-// const firestore = firebase.firestore();
-// const settings = {/* your settings... */ timestampsInSnapshots: true};
-// firestore.settings(settings);
 
 var testArray = ["Coinbase", "Bittrex", "Kraken"];
 var secondArray;
@@ -194,20 +191,17 @@ function createUser(){
         var errorMessage = error.message;
         // ...
     }).then(function(){
-        checkUser() //runs checkUser to set signedIn value
-        firebase.firestore().collection("users").doc(firebase.auth().currentUser.uid).set({
-            email: firebase.auth().currentUser.email,
+        user = firebase.auth().currentUser.uid
+        console.log(firebase.auth().currentUser.uid);
         })
         .then(function() {
-            mkUserDataExchangeChoices();
+            createInitialUserDocs();
             console.log("Document successfully written!");
         })
         .catch(function(error) {
             console.error("Error writing document: ", error);
         });
-    })
-   
-}//end createUser
+    }
 
 function checkUser(){
     let userCheck = firebase.auth().currentUser;
@@ -216,6 +210,8 @@ function checkUser(){
         user = firebase.auth().currentUser.uid;
         signedIn = true;
         getCustomExchange();
+        getCryptoSelection();
+        getFiatSelection();
     }
     else{
         user = "";
@@ -286,71 +282,70 @@ $("#login-button").on("click", function(event){
     });// ends createUser onclick
 
 
-function mkUserDataExchangeChoices(){
-    currentUserDoc = firebase.firestore().collection("users").doc(user);
-currentUserDoc.collection("User-Data").doc("Exchange-choices").set({
-    selected: []
-})
-.then(function(){
-    console.log("created User Data");
-})
-.catch(function(error){
-    console.error("Error writing document: ", error);
-})
-} // end mkSubcollectionDoc
-
-
-// ================================================
+// =======================================================================================================================
 // FireBase - FireStore - Functions
-// ================================================
+// =======================================================================================================================
 
-var currentUserDoc;
-
-function grabCurrentUserDoc(){
-    currentUserDoc = firebase.firestore().collection("users").doc(user.uid);
-    console.log(currentUserDoc);
-}
-
-// $("#login-button").on("click", function(event){
-//     event.preventDefault();
-//     grabCurrentUserDoc();
-// });
-
-
-
-// makes new Document on firestore
-function mkDoc(){
- var usersRef = firebase.firestore().collection("users");
- usersRef.doc("Cash-Cash").set({
-    name: "Insert-Name-Here"
- })
- .then(function(){
-     console.log("Doc Created")
- })
- .catch(function(error){
-     console.error("Error", error)
- });
-} // end mkDoc
-
-// creates a subcollection w/ doc for an existing document
-function mkUserDataExchangeChoices(){
-    currentUserDoc = firebase.firestore().collection("users").doc(user);
-currentUserDoc.collection("User-Data").doc("Exchange-choices").set({
-})
-.then(function(){
-    console.log("Document succesfully written!");
-})
-.catch(function(error){
-    console.error("Error writing document: ", error);
-})
-docRef.get().then(function(doc){
-    if (doc.exists){
-        secondArray = doc.data().test;
-        console.log(secondArray);
-        console.log(testArray);
-    }
-})
-} // end mkSubcollectionDoc
+function createInitialUserDocs(){
+    firebase.firestore().collection("users").doc(user).set({
+        email: firebase.auth().currentUser.email
+    })
+    let currentUserDoc = firebase.firestore().collection("users").doc(user);
+    // create user-data subcollection and doc for exchange choices
+    currentUserDoc.collection("User-Data").doc("Exchange-choices").set({
+        selected: []
+    })
+    .then(function(){
+        console.log("created User Data");
+    })
+    .catch(function(error){
+        console.error("Error writing document: ", error);
+    })
+    
+    //create doc for crypto currency
+    currentUserDoc.collection("User-Data").doc("Crypto-choice").set({
+        cryptoChoice: ""
+    })
+    .then(function(){
+        console.log("created Crypto-choice");
+    })
+    .catch(function(error){
+        console.error("Error writing document: ", error);
+    })
+    
+    // create doc for fiat currency
+    currentUserDoc.collection("User-Data").doc("Fiat-choice").set({
+        fiatChoice: ""
+    })
+    .then(function(){
+        console.log("created Fiat-choice");
+    })
+    .catch(function(error){
+        console.error("Error writing document: ", error);
+    })
+    
+    //create doc for positive portfolio
+    currentUserDoc.collection("User-Data").doc("Positive-portfolio").set({
+        stocks: []
+    })
+    .then(function(){
+        console.log("created Positive-portfolio");
+    })
+    .catch(function(error){
+        console.error("Error writing document: ", error);
+    })
+    
+    //create doc for negative portfolio
+    currentUserDoc.collection("User-Data").doc("Negative-portfolio").set({
+        stocks: []
+    })
+    .then(function(){
+        console.log("created Negative-portfolio");
+    })
+    .catch(function(error){
+        console.error("Error writing document: ", error);
+    })
+    } // end mkSubcollectionDoc
 
 // updates Existing Docs
 function saveExchangeChoice(){
@@ -365,7 +360,7 @@ return exchangesDocRef.update({
     console.error("Error:". error);
 })
 
-} // ends updateExisting Doc
+} // end updateExisting Doc
 
 function getCustomExchange(){
     if(signedIn === true){ //signed in defined on Auth.js
@@ -386,20 +381,58 @@ function getCustomExchange(){
     else{
         console.log("No active user");
     }
-}
+} // end getCustomExchange
+
+function uploadCryptoSelection(){
+    let cryptoDocRef = firebase.firestore().collection("users").doc(user).collection("User-Data").doc("Crypto-choice");
+    return cryptoDocRef.update({
+        cryptoChoice: cryptoCurrency
+    })
+    .then(function(){
+        console.log("Crypto choice uploaded!")
+    })
+    .catch(function(error){
+        console.error("Error:". error);
+    })
+}// end uploadCrypto function
+
+function getCryptoSelection(){
+    let cryptoDocRef = firebase.firestore().collection("users").doc(user).collection("User-Data").doc("Crypto-choice");
+    cryptoDocRef.get().then(function(doc){
+        if(doc.exists){
+            let userSavedCrypto = doc.data().cryptoChoice;
+            cryptoCurrency = userSavedCrypto;
+            console.log(cryptoCurrency);
+            $("#cryptoSelect option[value="+cryptoCurrency+"]").attr("selected", "selected");
+        }
+    })
+}// end getCrypto function
+
+function uploadFiatSelection(){
+    var cryptoDocRef = firebase.firestore().collection("users").doc(user).collection("User-Data").doc("Fiat-choice");
+    return cryptoDocRef.update({
+        fiatChoice: fiat
+    })
+    .then(function(){
+        console.log("Fiat choice uploaded!")
+    })
+    .catch(function(error){
+        console.error("Error:". error);
+    })    
+}// end uploadFiat function
+
+function getFiatSelection(){
+    let fiatDocRef = firebase.firestore().collection("users").doc(user).collection("User-Data").doc("Fiat-choice");
+    fiatDocRef.get().then(function(doc){
+        if(doc.exists){
+            let userSavedCrypto = doc.data().fiatChoice;
+            fiat = userSavedCrypto;
+            console.log(fiat);
+            $("#fiatSelect option[value="+fiat+"]").attr("selected", "selected");
+        }
+    })
+}// end getCrypto function
 
 
 
 
-// Add a new document in collection "cities"
-// db.collection("cities").doc("LA").set({
-//     name: "Los Angeles",
-//     state: "CA",
-//     country: "USA"
-// })
-// .then(function() {
-//     console.log("Document successfully written!");
-// })
-// .catch(function(error) {
-//     console.error("Error writing document: ", error);
-// });
